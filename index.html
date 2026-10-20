@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f5ee">
+<meta name="description" content="数字图像处理零基础期末速通课程：概念、PPT例题、交互实验、★拓展和模拟练习。">
+<title>像素之间｜数字图像处理速通课</title>
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="stylesheet" href="style.css"><script src="script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a><div id="scroll-progress"></div>
+<header class="topbar"><div class="top-inner">
+<a href="#home" class="logo"><span class="logo-mark">▦</span> 像素之间 <small>IMAGE PROCESSING / 101</small></a>
+<nav class="top-links"><a href="#overview">学习地图</a><a href="#ch3">重点内容</a><a href="#labs">交互实验</a><a href="#quiz">模拟练习</a></nav>
+<div class="top-buttons"><button id="themeBtn" aria-label="切换深色模式" title="切换明暗主题">☼</button><button id="menuBtn" class="menu-btn" aria-label="打开目录">☰</button></div>
+</div></header>
+<div id="mobileBackdrop"></div>
+<section id="home" class="hero"><div class="hero-inner">
+<div class="hero-text"><div class="overline">THE VISUAL STUDY GUIDE · 第 02 版</div>
+<h1>让复杂公式，<br><em>变成看得懂的图像。</em></h1>
+<p>依据冈萨雷斯《数字图像处理》中文版第二版、上传的课程PPT与《复习》PPT。零基础起步，概念配例子，再用交互实验学会做题。</p>
+<div class="hero-cta"><a class="button primary" href="#ch3">从考试重点开始 ↗</a><a class="button outline" href="#labs">进入交互实验 →</a></div>
+<div class="hero-foot">纯静态网页 · 本地可打开 · GitHub Pages 可部署</div></div>
+<div class="hero-image"><img src="images/cover.svg" width="560" height="430" alt="像素矩阵、频谱和曲线组成的教学插画"></div>
+</div></section>
+<div class="stats"><span><b>07</b> 课程章节</span><span><b>04</b> 重点计算题</span><span><b>05</b> 交互实验</span><span><b>★</b> 高分拓展</span></div>
+<div class="layout"><aside class="sidebar" id="sidebar">
+<div class="aside-heading">COURSE INDEX</div>
+<input id="search" type="search" placeholder="⌕ 搜索知识点…" aria-label="搜索课程正文">
+<div id="searchResults" class="search-results" hidden></div>
+<nav class="toc">
+<a href="#overview"><i>00</i>学习路线</a><a href="#ch1"><i>01</i>绪论</a><a href="#ch2"><i>02</i>数字图像基础</a>
+<a href="#ch3"><i>03</i>空间域增强 <b>重点</b></a><a href="#ch4"><i>04</i>频率域增强 <b>重点</b></a>
+<a href="#ch5"><i>05</i>图像复原 <b>重点</b></a><a href="#ch6"><i>06</i>形态学处理 <b>重点</b></a><a href="#ch7"><i>07</i>图像分割</a>
+<hr><a href="#labs"><i>◇</i>交互实验室</a><a href="#exam"><i>✎</i>PPT例题索引</a><a href="#quiz"><i>✓</i>模拟小测</a><a href="#formula-card"><i>≡</i>考前公式卡</a></nav>
+<div class="aside-actions"><label class="star-switch"><span>显示 ★ 拓展</span><input id="starToggle" type="checkbox" checked></label>
+<button id="printBtn">⎙ 打印 / 保存为PDF</button><p>已完成章节：<strong id="progressText">0 / 7</strong></p><div class="bar"><span id="chapterBar"></span></div>
+<small>「已学会」状态保存在本机浏览器。</small></div>
+</aside>
+<main id="main" class="main">
+<section id="overview" class="chapter intro">
+<div class="chapter-label">START HERE / 00</div><h2>先看全局，<em>再啃重点</em></h2>
+<p class="lead">空间域直接改像素；频率域先变换再滤波；复原追查损坏原因；形态学直接操作目标形状。</p>
+<div class="roadmap">
+<a href="#ch3" class="road-card"><small>CHAPTER 03</small><h3>空间域增强</h3><p>灰度变换 / 直方图 / 均值与中值 / 拉普拉斯</p><span>直接改像素 ↗</span></a>
+<a href="#ch4" class="road-card"><small>CHAPTER 04</small><h3>频率域增强</h3><p>傅里叶 / 低通与高通 / 同态滤波</p><span>变换后处理 ↗</span></a>
+<a href="#ch5" class="road-card"><small>CHAPTER 05</small><h3>图像复原</h3><p>噪声模型 / 周期噪声 / 逆滤波</p><span>逆向恢复 ↗</span></a>
+<a href="#ch6" class="road-card"><small>CHAPTER 06</small><h3>形态学处理</h3><p>腐蚀 / 膨胀 / 开闭运算</p><span>操作形状 ↗</span></a></div>
+<div class="notice"><b>考试策略：</b>《复习》PPT显示参考结构为填空18分、单选14分、计算/简答68分（不保证最终试卷相同）。优先练 <strong>直方图均衡、均值与中值、拉普拉斯、周期噪声陷波</strong>。</div>
+<div class="concept-grid four"><div><b>①</b>直方图均衡<p>累计概率、映射灰度</p></div><div><b>②</b>均值 / 中值<p>邻域计算、排序</p></div><div><b>③</b>拉普拉斯<p>模板乘加、符号</p></div><div><b>④</b>频域陷波<p>找对称异常亮点</p></div></div>
+<p class="subtle">阅读约定：正文是优先内容；标注「★」的折叠框是可选深入模块；「PPT原题」尽量按上传课件的数据来讲解。第5章未提供独立PPT，使用《复习》PPT提纲与教材概念补足，并在页面说明。</p>
+</section>
+
+<section id="ch1" class="chapter" data-chapter="1">
+<div class="chapter-label">CHAPTER 01 / 基础</div><h2>绪论：什么是数字图像？</h2>
+<p class="lead">数字图像是一个二维数字表：每个位置叫像素，像素里存放灰度或颜色。</p>
+<div class="definition"><strong>数字图像</strong>：空间坐标与灰度值都已离散化的图像，用 <code>f(x,y)</code> 表示。像素是它的基本组成单位。</div>
+<div class="concept-grid three"><div><b>二值图像</b><p>仅有两种值，如0与1。</p></div><div><b>灰度图像</b><p>一个像素一个灰度值，8位图为0～255。</p></div><div><b>RGB图像</b><p>每个像素含红、绿、蓝三分量。</p></div></div>
+<h3>图像工程的三个层次</h3>
+<table><tr><th>层次</th><th>输入 → 输出</th><th>举例</th></tr><tr><td>图像处理</td><td>图像 → 图像</td><td>照片去噪</td></tr><tr><td>图像分析</td><td>图像 → 数据</td><td>检测细胞数目</td></tr><tr><td>图像理解</td><td>图像 → 解释</td><td>理解场景中的动作</td></tr></table>
+<p class="memory">记忆：<b>处理改图像，分析提数据，理解得意义。</b></p>
+<details class="star"><summary>★ 成像波段与应用</summary><p>图像不只来自可见光，还可通过红外、X射线、微波、超声波、电子显微镜等获得。数字图像处理的任务包括增强、复原、分割、特征提取、识别与压缩等。计算机图形学通常从数据或模型生成图像，图像处理通常对已有图像加工。</p></details>
+<label class="done"><input type="checkbox" data-done="1"> 我已掌握第1章</label></section>
+
+<section id="ch2" class="chapter" data-chapter="2">
+<div class="chapter-label">CHAPTER 02 / 基础</div><h2>图像数字化：<em>位置和亮度</em></h2>
+<p class="lead">先分清采样和量化，再掌握存储空间、插值、邻域与距离度量。</p>
+<div class="concept-grid two"><div><small>SAMPLING</small><h3>采样</h3><p>离散化坐标(x,y)：决定有多少个像素。太稀疏会损失细节、出现块状效果。</p></div><div><small>QUANTIZATION</small><h3>量化</h3><p>离散化灰度 f(x,y)：决定有多少种亮度。级数太少会产生伪轮廓。</p></div></div>
+<div class="formula"><small>STORAGE</small><strong>b = M × N × k（bit）</strong><p>M×N是像素数；L=2<sup>k</sup>是灰度级数。256级灰度=8 bit/像素。</p></div>
+<div class="worked"><div class="worked-title"><span>例题</span>256×256、256级灰度图像有多大？</div><p>256×256×8=524288 bit → 除以8=65536 Byte → <b>64 KiB</b>（不计文件头）。</p></div>
+<h3>图像放大与插值</h3>
+<table><tr><th>方法</th><th>思路</th><th>特点</th></tr><tr><td>最近邻</td><td>取最近已知像素</td><td>快，但锯齿明显</td></tr><tr><td>双线性</td><td>周围4像素距离加权</td><td>较平滑，边缘可能变模糊</td></tr><tr><td>三次插值</td><td>使用更多邻点</td><td>更复杂，质量常较好</td></tr></table>
+<p>例：<code>[[10,20],[30,40]]</code> 的正中心双线性插值：<b>(10+20+30+40)/4=25</b>。</p>
+<h3>4邻域、D邻域、8邻域</h3><img class="wide-illustration" src="images/neighborhood.svg" alt="4-neighborhood, diagonal-neighborhood and 8-neighborhood pixel diagrams" loading="lazy">
+<p><b>4邻域：</b>上下左右；<b>D邻域：</b>四个对角；<b>8邻域：</b>两者之和。邻接除了位置相邻，还要求像素取值属于指定灰度集合V。</p>
+<p><b>m邻接：</b>若两个像素对角相邻，还要检查它们共同的4邻域中没有属于V的像素；用来减少8邻接的二义性。</p>
+<h3>距离公式</h3>
+<div class="formula"><small>DISTANCE</small><strong>D<sub>E</sub> = √[(x−s)²+(y−t)²]<br>D<sub>4</sub> = |x−s|+|y−t|<br>D<sub>8</sub> = max(|x−s|,|y−t|)</strong><p>对应圆形、菱形、正方形等距线。D<sub>m</sub>是符合m邻接的最短通路长度。</p></div>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>《复习》第20页距离计算</div><p>课件给出的答案为 <b>D₄=5、D₈=3、D<sub>m</sub>=4</b>。注意D₄/D₈取决于两端坐标，而Dₘ需要看哪些像素可以连通。</p></div>
+<h3>视觉感知与像素关系</h3>
+<ul><li><b>亮度适应：</b>人眼根据环境改变灵敏度；明处到暗处是暗适应。</li>
+<li><b>马赫带效应：</b>灰度交界附近主观明暗被增强。</li><li><b>同时对比：</b>相同灰度在不同背景中可能看起来不同。</li>
+<li><b>通路：</b>相邻像素序列；长度为移动的步数。</li><li><b>连通分量：</b>互相可达的一组像素；连通的像素集是一个区域。</li><li><b>边界：</b>区域内邻近背景的像素。</li></ul>
+<details class="star"><summary>★ m邻接完整判定</summary><p>q∈N₄(p)，或者q∈N<sub>D</sub>(p) 且 N₄(p)∩N₄(q) 中无属于V的像素。做题时先标出属于V的可通行像素，再计算最短通路；不要将简单的D₈当作Dₘ。</p></details>
+<label class="done"><input type="checkbox" data-done="2"> 我已掌握第2章</label></section>
+
+<section id="ch3" class="chapter" data-chapter="3">
+<div class="chapter-label">CHAPTER 03 / <span class="priority">考试重点</span></div><h2>空间域增强：<em>直接改像素</em></h2>
+<p class="lead">点处理只看当前像素；邻域处理还看周围像素。空间域增强的共同目标是让图像更适合特定应用。</p>
+<div class="formula"><small>MAIN IDEA</small><strong>g(x,y)=T[f(x,y)]</strong><p>f是原图、T是处理规则、g是输出。</p></div>
+<h3>3.1 基本灰度变换</h3>
+<table><tr><th>名称</th><th>变换</th><th>作用</th></tr>
+<tr><td>灰度反转</td><td>s=L−1−r</td><td>黑白颠倒，突出暗背景中的亮细节</td></tr>
+<tr><td>对数变换</td><td>s=c log(1+r)</td><td>扩展暗部，压缩高灰度动态范围</td></tr>
+<tr><td>幂次变换</td><td>s=c r<sup>γ</sup></td><td>归一化时γ&lt;1提亮，γ&gt;1压暗</td></tr>
+<tr><td>分段线性</td><td>分段指定T(r)</td><td>对比拉伸、灰度切割、位平面切割</td></tr></table>
+<div class="worked"><div class="worked-title"><span>例题</span>8位灰度60做反转</div><p>最大灰度255，所以新灰度 <b>255−60=195</b>。</p></div>
+<p><b>对比拉伸：</b>把狭窄灰度范围扩宽；<b>灰度切割：</b>选定灰度区间突出显示；<b>位平面切割：</b>把8bit拆成8个二进制层，高位通常包含更重要的视觉信息。</p>
+<h3>3.2 灰度直方图与均衡化</h3>
+<p>直方图的横轴是灰度值，纵轴是该灰度出现的次数或概率；<b>它不记录像素的空间位置</b>。暗图像的直方图常偏左，低对比度图像的直方图常较窄。</p>
+<div class="formula"><small>HISTOGRAM</small><strong>p(r<sub>k</sub>) = n<sub>k</sub> / (M N)</strong><p>nₖ为灰度rₖ的频数，MN为总像素数。</p></div>
+<div class="formula featured"><small>EQUALIZATION · 记牢</small><strong>s<sub>k</sub> = round[(L−1) ∑<sub>j=0</sub><sup>k</sup> p(r<sub>j</sub>)]</strong><p>求概率 → 逐项累加 → 乘最大灰度L−1 → 取整 → 合并映射后的频数。</p></div>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>64×64、3bit图像直方图均衡</div>
+<p>原灰度0～7的频数：<code>790, 1023, 850, 656, 329, 245, 122, 81</code>；总数4096。</p>
+<p>灰度2的累计概率=(790+1023+850)/4096≈0.6501，映射新灰度=round(7×0.6501)=<b>5</b>。</p>
+<div class="pill-lines"><code>0→1</code><code>1→3</code><code>2→5</code><code>3→6</code><code>4→6</code><code>5→7</code><code>6→7</code><code>7→7</code></div>
+<p>均衡后的频数：<b>0, 790, 0, 1023, 0, 850, 985, 448</b>。新灰度6的985个像素来自原灰度3和4：656+329=985。</p>
+<a class="text-link" href="#lab-hist">亲手做一次均衡化 →</a></div>
+<p><b>直方图规定化：</b>让直方图接近指定分布；分别求原分布与目标分布的累计概率后匹配。<b>局部增强：</b>利用局部均值、方差或局部直方图改善小区域细节。</p>
+<h3>3.3 空间滤波：模板在像素上滑动</h3>
+<p>线性滤波把3×3邻域像素与对应模板系数相乘再求和；非线性滤波可根据邻域排序取中值。均值滤波可视为低通，拉普拉斯可视为高通。</p>
+<div class="concept-grid two"><div><small>SMOOTHING</small><h3>平滑 / 低通</h3><p>抑制快速变化与一些随机噪声，但可能让边缘变模糊。</p></div><div><small>SHARPENING</small><h3>锐化 / 高通</h3><p>强化边缘和纹理，也容易放大噪声。</p></div></div>
+<h3>3.4 均值与中值：必会矩阵题</h3>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>16灰度级图像，中心有异常值15</div>
+<pre class="pixel-matrix"> 1   2   2
+ 1  [15]  1
+ 2   1   2</pre>
+<p><b>均值：</b>9个数之和27，27/9=<b>3</b>。</p>
+<p><b>中值：</b>排序1,1,1,1,<u>2</u>,2,2,2,15，取第5个=<b>2</b>。</p>
+<p>椒盐噪声优先中值滤波；独立零均值高斯噪声常用均值或加权均值减弱，但边缘也可能被模糊。</p>
+<a class="text-link" href="#lab-kernel">打开3×3滤波计算器 →</a></div>
+<img class="wide-illustration" src="images/noise.svg" alt="Gaussian Noise and Salt-and-Pepper Noise pixel patterns" loading="lazy">
+<p><b>非线性顺序统计滤波：</b>中值去脉冲噪声；最大值可抑制孤立暗点，最小值可抑制孤立亮点。边界处理要注意补零、复制边界或只计算内部像素。</p>
+<h3>3.5 拉普拉斯：二阶微分锐化</h3>
+<div class="kernel-pair"><div><b>中心 −4</b><pre> 0   1   0
+ 1  −4   1
+ 0   1   0</pre><p>锐化 = 原图 <b>减</b>响应</p></div><div><b>中心 +4</b><pre> 0  −1   0
+−1   4  −1
+ 0  −1   0</pre><p>锐化 = 原图 <b>加</b>响应</p></div></div>
+<p class="memory"><b>中心负做减法，中心正做加法。</b> 模板系数之和为0，恒定灰度区域响应为0。</p>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>求中心像素的拉普拉斯响应及锐化结果</div>
+<pre class="pixel-matrix"> 2   7   3
+ 5  [8]  1
+ 9   2   8</pre>
+<p>中心为+4的模板，响应=<b>4×8−(7+5+1+2)=17</b>；锐化值=<b>8+17=25</b>。</p>
+<p>⚠️ 响应17与锐化后的25不是同一个数。若整个图像边界补0，PPT给出的响应矩阵为：</p>
+<pre>−4   15    4
+ 1   17  −15
+29  −17   29</pre></div>
+<h3>3.6 梯度：一阶微分锐化</h3>
+<div class="formula"><small>GRADIENT</small><strong>|∇f|=√(G<sub>x</sub>²+G<sub>y</sub>²) ≈ |G<sub>x</sub>|+|G<sub>y</sub>|</strong><p>梯度方向是灰度增长最快的方向，边缘走向与它垂直。</p></div>
+<table><tr><th>算子</th><th>尺寸</th><th>特点</th></tr><tr><td>Roberts</td><td>2×2</td><td>交叉差分、噪声敏感</td></tr><tr><td>Prewitt</td><td>3×3</td><td>比较行列灰度</td></tr><tr><td>Sobel</td><td>3×3</td><td>中间系数为2，抑噪相对更好</td></tr></table>
+<div class="kernel-pair"><div><b>Sobel Gx</b><pre>−1   0   1
+−2   0   2
+−1   0   1</pre></div><div><b>Sobel Gy</b><pre>−1  −2  −1
+ 0   0   0
+ 1   2   1</pre></div></div>
+<details class="star"><summary>★ 代码展示：直方图均衡映射表如何计算？</summary>
+<p>下面的 JavaScript 是交互实验使用的核心算法的简化版本，可以直接理解“概率 → 累计 → 取整”的步骤。</p>
+<pre class="code-block"><code>// 3bit图像，8个灰度级
+const counts = [790, 1023, 850, 656, 329, 245, 122, 81];
+const total = counts.reduce((a, b) =&gt; a + b, 0);
+let cumulative = 0;
+const mapping = counts.map(count =&gt; {
+  cumulative += count / total;
+  return Math.round(7 * cumulative);
+});
+console.log(mapping); // [1, 3, 5, 6, 6, 7, 7, 7]</code></pre>
+</details>
+<h3>3.7 其它PPT考点</h3>
+<ul><li>图像加法：多帧平均减轻独立加性噪声、图像融合。</li><li>图像减法：背景消除、运动/变化检测。</li><li>逻辑与/或/非：用二值掩模提取感兴趣区域。</li><li>混合增强：结合拉普拉斯、Sobel、平滑与幂次变换。</li></ul>
+<details class="star"><summary>★ 直方图简并与规定化</summary><p>离散灰度均衡化需要取整，多个输入灰度可能变为同一个输出灰度，因此结果未必严格均匀（简并）。规定化则是让累计分布接近指定目标分布。</p></details>
+<details class="star"><summary>★ 拉普拉斯单模板锐化、噪声敏感性</summary><p>中心+4模板加上单位模板后形成一次计算的锐化核：</p><pre class="pixel-matrix"> 0  −1   0
+−1   5  −1
+ 0  −1   0</pre><p>拉普拉斯对孤立噪声极敏感，实践中往往先去噪后锐化。</p></details>
+<details class="star"><summary>★ γ校正、位平面与局部统计增强</summary><p>归一化灰度r=0.25时：γ=0.5→0.5（亮），γ=2→0.0625（暗）。对数变换常用来显示动态范围巨大的傅里叶频谱。高位比特平面通常含主要视觉结构，低位常携带微小细节。</p></details>
+<label class="done"><input type="checkbox" data-done="3"> 我已掌握第3章</label></section>
+
+<section id="ch4" class="chapter" data-chapter="4">
+<div class="chapter-label">CHAPTER 04 / <span class="priority">考试重点</span></div><h2>频率域增强：<em>把图像拆成频率</em></h2>
+<p class="lead">傅里叶变换就像把一首歌拆成不同音高；图像也能拆成空间频率成分。低频描述缓慢变化，高频描述边缘、细节，也可能包括噪声。</p>
+<img src="images/frequency.svg" class="wide-illustration" alt="FFT unshifted and centered spectrum schematic" loading="lazy">
+<h3>4.1 傅里叶变换（DFT）</h3>
+<p>输入 f(x,y) 是灰度表格，输出 F(u,v) 是复数频谱。<b>幅度谱</b>说明各频率强度，<b>相位谱</b>包含重要的位置和结构信息，<b>功率谱</b>等于幅度平方。</p>
+<div class="formula"><small>2D DFT</small><strong class="wrap-formula">F(u,v)=∑<sub>x=0</sub><sup>M−1</sup>∑<sub>y=0</sub><sup>N−1</sup>f(x,y)e<sup>−j2π(ux/M+vy/N)</sup></strong><p>逆DFT的指数变为正号，并乘以1/(MN)。正、逆变换的尺寸相同。</p></div>
+<p><b>直流分量：</b>F(0,0)是图像像素灰度之和，所以平均灰度是 <b>F(0,0)/(MN)</b>（按这里的DFT约定）。</p>
+<p><b>中心化：</b>将未中心化频谱四角附近的低频移到中心，便于观察。中心化后<b>中心低频、四周高频</b>。</p>
+<h3>4.2 频域滤波的三步流程</h3>
+<div class="process"><div>① 傅里叶变换 <b>f → F</b></div><div>② 按频率乘滤波器 <b>G=H·F</b></div><div>③ 逆变换 <b>G → g</b></div></div>
+<div class="formula featured"><small>FILTERING</small><strong>G(u,v)=H(u,v)F(u,v)</strong><p>H=1表示让该频率通过，H=0表示完全去掉；0到1之间表示部分衰减。</p></div>
+<h3>4.3 低通滤波器（LPF）：平滑</h3>
+<p>低通保留中心附近低频，抑制外围高频。可平滑细小噪声，但也容易模糊边缘。</p>
+<div class="graph-panel"><div class="graph-title">Low-pass Filter Response <small>Interactive · cutoff D₀</small></div>
+<svg id="lowpassGraph" viewBox="0 0 440 210" role="img" aria-label="三种低通滤波器的传递曲线" preserveAspectRatio="xMidYMid meet">
+<line x1="43" y1="16" x2="43" y2="166"/><line x1="43" y1="166" x2="426" y2="166"/>
+<text x="17" y="26">H</text><text x="416" y="190">D</text><text x="28" y="169">0</text><text x="26" y="29">1</text>
+<line x1="45" y1="27" x2="425" y2="27" class="chart-grid"/>
+<line x1="45" y1="97" x2="425" y2="97" class="chart-grid"/>
+<path id="idealPath" class="curve ideal"/><path id="butterPath" class="curve butter"/><path id="gaussPath" class="curve gauss"/>
+<text x="52" y="206" class="legend ideal-label">— Ideal</text><text x="162" y="206" class="legend butter-label">— Butterworth</text><text x="308" y="206" class="legend gauss-label">— Gaussian</text></svg>
+<div class="slider-row"><label for="cutoff">Cutoff D₀</label><input id="cutoff" type="range" min="15" max="75" value="40"><output id="cutoffValue">40</output></div>
+</div>
+<table><tr><th>滤波器</th><th>特征</th><th>振铃</th></tr><tr><td>理想低通</td><td>截止点突变</td><td>明显</td></tr><tr><td>巴特沃斯低通</td><td>过渡平滑度受阶数n控制</td><td>高阶较明显</td></tr><tr><td>高斯低通</td><td>曲线最平滑</td><td>无振铃</td></tr></table>
+<div class="formula"><small>LOW-PASS FORMULAS</small><strong class="formula-small">Ideal: H(D)=1 (D≤D₀), 否则0<br>Butterworth: H(D)=1/[1+(D/D₀)<sup>2n</sup>]<br>Gaussian: H(D)=e<sup>−D²/(2D₀²)</sup></strong><p>D是到频谱中心的距离。D₀越小，通常越模糊；巴特沃斯n越大，越接近理想截断。</p></div>
+<p><b>振铃：</b>边缘附近出现不真实的明暗波纹。频域截断越陡，空间域振铃通常越明显。</p>
+<h3>4.4 高通滤波器（HPF）：锐化</h3>
+<div class="formula"><small>HIGH-PASS</small><strong>H<sub>HP</sub>(u,v)=1−H<sub>LP</sub>(u,v)</strong><p>高通保留高频，突出边缘和细节，但同时可能增强噪声。三类高通分别是理想、巴特沃斯和高斯高通。</p></div>
+<p>纯高通可能使背景偏暗。<b>高频强调</b>可通过 <code>H_HFE=a+b H_HP</code> 保留一部分低频同时增强边缘。</p>
+<h3>4.5 同态滤波</h3>
+<p>图像形成模型 <b>f=i·r</b>：照射分量 i 常缓慢变化（近似低频），反射分量 r 包含较多结构变化（近似高频）。为了分别调整它们，先取对数：</p>
+<div class="formula"><small>HOMOMORPHIC</small><strong>ln(f)=ln(i)+ln(r)</strong><p>将乘性关系变成加性关系，随后做频域滤波，适当压低低频、增强高频，最后指数还原。</p></div>
+<h3>4.6 频域与空间域的关系</h3>
+<p>核心定理：<b>空域卷积 ↔ 频域乘积</b>。小模板通常直接在空间域计算方便，大型卷积则可能更适合FFT。</p>
+<details class="star"><summary>★ 高频：频域的拉普拉斯</summary><p>连续傅里叶变换下：<code>ℱ{∇²f}=−4π²(u²+v²)F(u,v)</code>。频率越高，二阶微分放大的幅值越大，解释了拉普拉斯为何用于锐化。</p></details>
+<details class="star"><summary>★ 线性、周期性、平移与共轭对称</summary><p>DFT是线性的，频谱以M、N为周期；对实值图像存在共轭对称性。空间平移主要改变相位，不改变完整信号的幅度谱。频谱中强能量方向常与图像中对应边缘方向垂直。</p><p>PPT第54页：若g(m,n)=2f(m,n)−f(m+1,n)−f(m,n+1)，则H(u,v)=2−e<sup>j2πu/M</sup>−e<sup>j2πv/N</sup>。</p></details>
+<details class="star"><summary>★ FFT、可分性和频域卷绕误差</summary><p>二维DFT可先对各行进行一维DFT，再对各列进行一维DFT；FFT是快速求DFT的方法。DFT相乘天然对应循环卷积。若两个数组尺寸为A×B和C×D，计算线性卷积时至少填充至(A+C−1)×(B+D−1)，避免卷绕误差。</p></details>
+<label class="done"><input type="checkbox" data-done="4"> 我已掌握第4章</label></section>
+
+<section id="ch5" class="chapter" data-chapter="5">
+<div class="chapter-label">CHAPTER 05 / <span class="priority">考试重点</span></div><h2>图像复原：<em>从损坏中找回来</em></h2>
+<p class="lead">增强关注“更好看、特征更突出”，复原关注“为什么损坏，以及怎样尽可能恢复”。本章按《复习》PPT第5章提纲，并以教材知识补足（未上传单独的第5章课件）。</p>
+<div class="formula featured"><small>DEGRADATION MODEL</small><strong>g(x,y)=H[f(x,y)]+η(x,y)</strong><p>原图f → 退化系统H（例如失焦） → 再叠加噪声η → 退化图g。</p></div>
+<p>若只有加性噪声：<b>g=f+η</b>；若退化系统线性、位置不变：</p>
+<div class="formula"><small>FREQUENCY MODEL</small><strong>g=h*f+η<br>G(u,v)=H(u,v)F(u,v)+N(u,v)</strong><p>空间域卷积在频域变成乘积；H是退化函数的频率响应。</p></div>
+<h3>5.1 噪声模型</h3>
+<table><tr><th>类型</th><th>通俗理解</th><th>常见处理</th></tr><tr><td>高斯</td><td>灰度附近的连续随机波动</td><td>均值或加权均值</td></tr><tr><td>瑞利</td><td>单侧偏斜分布</td><td>按概率模型估计</td></tr><tr><td>伽马 / 爱尔兰</td><td>非负、参数可调分布</td><td>按概率模型估计</td></tr><tr><td>指数</td><td>偏向较小正值</td><td>按概率模型估计</td></tr><tr><td>均匀</td><td>指定区间内等概率</td><td>中点滤波等</td></tr><tr><td>椒盐</td><td>孤立的极黑/极白点</td><td>中值滤波</td></tr><tr><td>周期噪声</td><td>规律性明暗条纹</td><td>频域陷波</td></tr></table>
+<p><b>噪声估计：</b>可采集均匀场景或在退化图中选取平坦区域，分析其直方图，估计噪声类型、均值和方差。</p>
+<h3>5.2 只有噪声时的空间滤波</h3>
+<table><tr><th>滤波器</th><th>运算</th><th>适用点</th></tr><tr><td>算术均值</td><td>邻域平均</td><td>压低独立随机噪声方差</td></tr><tr><td>几何均值</td><td>像素乘积开方（相应次幂）</td><td>较温和的平滑</td></tr><tr><td>谐波均值</td><td>n/∑(1/g)</td><td>对某些亮脉冲有效</td></tr><tr><td>逆谐波均值</td><td>∑g<sup>Q+1</sup>/∑g<sup>Q</sup></td><td>按Q的符号选择抑制黑/白点</td></tr><tr><td>中值 / 最大 / 最小</td><td>排序后选择统计量</td><td>椒盐 / 暗脉冲 / 亮脉冲</td></tr><tr><td>中点 / 修正α均值</td><td>极值平均 / 截断极值后平均</td><td>均匀噪声 / 混合噪声</td></tr><tr><td>自适应滤波</td><td>根据局部统计调整</td><td>希望更好保护细节</td></tr></table>
+<div class="worked"><div class="worked-title"><span>模拟题</span>中心255的椒盐噪声</div><pre class="pixel-matrix">10  11   9
+10 [255] 11
+ 9  10  10</pre><p>均值=(335/9)≈<b>37.22</b>；排序取中值=<b>10</b>。中值更接近真实区域灰度。</p></div>
+<h3>5.3 周期噪声为什么用陷波？</h3>
+<img class="wide-illustration" src="images/notch.svg" alt="Periodic stripes and symmetric peaks in a Fourier spectrum" loading="lazy">
+<p>周期性干扰在频谱中常表现为<b>成对的异常峰值</b>。普通低通会连原图细节一起模糊；陷波滤波器只压低指定频率附近的峰值。</p>
+<div class="process"><div>① 计算二维DFT并中心化</div><div>② 查找对称异常亮点</div><div>③ 对称放置陷波阻止区域</div><div>④ 相乘滤波、逆变换</div></div>
+<div class="worked"><div class="worked-title"><span>模拟题</span>8×8频谱的噪声峰值在(2,4)和(6,4)</div><p>中心为(4,4)。在两点设置<b>H(2,4)=H(6,4)=0</b>，其余尽可能保持1，再做<b>G_filtered=H·G</b>并逆变换。实际工程可在峰值附近形成小范围平滑陷波。</p><a href="#lab-notch" class="text-link">拖动频谱噪声位置 →</a></div>
+<p><b>区别：</b>带阻滤波去掉一段频率带（常呈环状）；陷波阻止滤波只去掉特定离散频率附近的区域；带通与陷波通过则是对应的“通过”方式。</p>
+<h3>5.4 估计退化函数与逆滤波</h3>
+<p>退化函数H可通过<b>观察法</b>（看模糊规律）、<b>试验法</b>（测已知目标或点源）、<b>建模法</b>（根据成像物理过程）估计。</p>
+<div class="formula featured"><small>INVERSE FILTER</small><strong>F̂(u,v)=G(u,v)/H(u,v)</strong><p>已知H且无噪声时可直接“除掉退化”。例：G=20、H=0.5，则F̂=40。</p></div>
+<p><b>最大陷阱：</b>有噪声时F̂=F+N/H；如果H接近0，噪声项N/H会被严重放大。常用限制频率范围或维纳滤波改善。</p>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>多帧平均去噪，标准差降为1/10需要多少帧？</div><p>独立加性零均值噪声平均M帧后，标准差变成 <b>σ/√M</b>；令√M=10，则<b>M=100帧</b>。每秒30帧时需 <b>100/30≈3.33秒</b>。</p></div>
+<details class="star"><summary>★ 线性与位置不变，是两个独立条件</summary><p>线性满足H(af₁+bf₂)=aH(f₁)+bH(f₂)。位置不变表示输入空间平移后，输出相应平移。平方系统H[f]=f²可以位置不变却不是线性，切记不要把两个条件混为一谈。</p></details>
+<details class="star"><summary>★ 逆谐波滤波、维纳滤波</summary><p>逆谐波均值为Σg<sup>Q+1</sup>/Σg<sup>Q</sup>。通常Q&gt;0有利于抑制椒噪声（黑点），Q&lt;0有利于抑制盐噪声（白点）；遇到0与负指数要注意定义。维纳滤波综合信号/噪声功率信息，在去模糊和抑噪之间折中。</p></details>
+<label class="done"><input type="checkbox" data-done="5"> 我已掌握第5章</label></section>
+
+<section id="ch6" class="chapter" data-chapter="6">
+<div class="chapter-label">CHAPTER 06 / <span class="priority">考试重点</span></div><h2>形态学：<em>让形状长大或缩小</em></h2>
+<p class="lead">形态学用集合表示前景像素，再用小模板「结构元素」探测和修改形状。</p>
+<div class="concept-grid two"><div><small>EROSION</small><h3>腐蚀 A⊖B</h3><p><b>全放进去才算。</b>结构元素的所有前景位置必须属于目标；通常让目标缩小、断开细连接。</p></div><div><small>DILATION</small><h3>膨胀 A⊕B</h3><p><b>碰到就算。</b>移动适当反射后的结构元素，与目标相交即计入；通常扩大目标、连接裂缝。</p></div></div>
+<div class="worked"><div class="worked-title"><span>基础计算</span>3×3全1的目标，使用3×3全1结构元素</div>
+<div class="kernel-pair"><div><b>原图</b><pre>1  1  1
+1  1  1
+1  1  1</pre></div><div><b>腐蚀后</b><pre>0  0  0
+0  1  0
+0  0  0</pre></div></div><p>只有中心位置能把整个3×3结构元素放进原目标，所以只保留中心1。反过来，孤立的一个1膨胀后可变成3×3方块。</p><a href="#lab-morph" class="text-link">亲手点格子做形态学 →</a></div>
+<h3>开操作与闭操作</h3>
+<table><tr><th>操作</th><th>顺序</th><th>典型作用</th></tr><tr><td>开操作 A∘B</td><td>先腐蚀，再膨胀</td><td>去细小突出物、分离窄连接</td></tr><tr><td>闭操作 A•B</td><td>先膨胀，再腐蚀</td><td>补小孔、连接窄缝</td></tr></table>
+<p class="memory"><b>开：先缩后扩，去毛刺。闭：先扩后缩，补缝隙。</b></p>
+<h3>集合与逻辑操作</h3>
+<p>常见集合操作：并集A∪B、交集A∩B、补集Aᶜ、差集A−B、结构元素反射与平移。二值图像中的与、或、非分别与交、并、求补对应。</p>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>求 (A∪B)∩(A∩B)ᶜ</div><p>先取两个集合的并集，再删掉它们的交集，最终只保留<b>A或B各自独有、但不重叠的区域</b>（对称差）。</p></div>
+<h3>其余PPT内容</h3>
+<ul><li><b>击中或击不中：</b>同时用前景与背景模板匹配指定形状。</li><li><b>边界提取：</b>用原目标减去腐蚀结果。</li><li><b>孔洞填充：</b>从孔洞内部的种子点出发，在允许范围内反复膨胀。</li><li><b>连通分量提取：</b>从某一前景种子点出发，扩张得到与它连通的整块前景。</li></ul>
+<details class="star"><summary>★ 形态学公式与对偶性</summary><p>腐蚀A⊖B={z | B<sub>z</sub>⊆A}；膨胀A⊕B={z | (B̂)<sub>z</sub>∩A≠∅}，其中B̂为结构元素关于原点的反射。开操作(A⊖B)⊕B，闭操作(A⊕B)⊖B。腐蚀与膨胀在求补、反射下存在对偶关系。</p></details>
+<details class="star"><summary>★ 边界提取、形状匹配与孔洞填充</summary><p>边界提取公式β(A)=A−(A⊖B)。击中或击不中可写成(A⊖B₁)∩(Aᶜ⊖B₂)：B₁约束必须是前景的像素，B₂约束必须是背景的像素。孔洞填充的迭代典型形式是Xₖ=(Xₖ₋₁⊕B)∩Aᶜ，直到不再变化。</p></details>
+<label class="done"><input type="checkbox" data-done="6"> 我已掌握第6章</label></section>
+
+<section id="ch7" class="chapter" data-chapter="7">
+<div class="chapter-label">CHAPTER 07 / 概念梳理</div><h2>图像分割：<em>把目标找出来</em></h2>
+<p class="lead">分割的终点，是将感兴趣对象从图像中分离。两条主路：根据不连续性找边缘，或根据相似性找区域。</p>
+<div class="concept-grid two"><div><small>DISCONTINUITY</small><h3>不连续性</h3><p>灰度突然变化的点、线、边缘。梯度与拉普拉斯是检测工具。</p></div><div><small>SIMILARITY</small><h3>相似性</h3><p>按灰度/其他性质把像素归入区域：阈值、区域生长。</p></div></div>
+<h3>间断检测与边缘模型</h3>
+<table><tr><th>对象</th><th>常用思路</th></tr><tr><td>孤立点</td><td>二阶微分 / 拉普拉斯检测</td></tr><tr><td>特定方向线</td><td>方向模板 + 门限</td></tr><tr><td>边缘</td><td>一阶梯度阈值、二阶零交叉（LoG）</td></tr></table>
+<p>边缘模型分为台阶边缘、斜坡边缘、屋顶边缘。Sobel、Prewitt、Roberts为一阶微分算子；LoG先平滑再做拉普拉斯，对噪声相对稳健。</p>
+<h3>阈值处理</h3>
+<div class="formula"><small>THRESHOLD</small><strong>g(x,y)=1, 当 f(x,y)≥T；否则为0</strong><p>全局阈值用一个T；局部阈值与自适应阈值则依据空间位置或局部统计动态选择。</p></div>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>《复习》PPT第77页字符C分割</div><p>课件给出的适当门限为<b>T=5</b>。保留灰度达到门限的目标像素，其余设为背景。</p></div>
+<h3>区域生长</h3>
+<p>从种子像素开始，不断检查邻居；同时满足<b>空间连通</b>和<b>灰度相似</b>条件的像素加入当前区域。</p>
+<div class="worked"><div class="worked-title"><span>PPT原题</span>《复习》PPT第78页区域生长</div><p>判断条件 <b>|f(p)−f(种子)|&lt;3</b>。分别按4邻接和8邻接，把满足阈值且与种子可达的像素纳入区域；不要只看灰度而忽略连通性。</p></div>
+<h3>边缘连接与霍夫变换</h3>
+<p>局部边缘连接利用相邻候选点的梯度大小、方向相近性；霍夫变换在参数空间中找直线的共同参数。</p>
+<details class="star"><summary>★ 霍夫变换与边缘方向</summary><p>直线的极坐标表示为ρ=x cosθ+y sinθ。图像中的共线点会在参数空间的同一点附近汇聚。梯度向量通常与边缘本身的延伸方向垂直。</p></details>
+<label class="done"><input type="checkbox" data-done="7"> 我已掌握第7章</label></section>
+
+<section id="labs" class="chapter labs-section">
+<div class="chapter-label">TRY IT YOURSELF / INTERACTIVE LABS</div>
+<h2>五个可以动手的<em>实验</em></h2>
+<p class="lead">不用安装Python、MATLAB或其他依赖。所有计算与图表都由浏览器原生JavaScript与SVG完成。</p>
+<article class="lab" id="lab-hist">
+<div class="lab-head"><span>LAB 01 · HISTOGRAM</span><h3>直方图均衡化计算台</h3><p>用第3章PPT原题的数据开始；修改8个灰度的频数，再查看累计概率、映射关系与新直方图。</p></div>
+<label for="histInput">灰度0～7的频数（8个整数，以逗号分隔）</label>
+<div class="lab-input-row"><input id="histInput" value="790,1023,850,656,329,245,122,81" spellcheck="false">
+<button class="button primary" id="calcHist">计算均衡化</button><button class="button mini" id="resetHist">还原PPT原题</button></div>
+<p class="error" id="histError" role="alert"></p>
+<div class="chart-columns">
+<div><h4>Before · Original Histogram</h4><svg id="histBefore" class="bar-chart" role="img" aria-label="Histogram before equalization" viewBox="0 0 390 220"></svg></div>
+<div><h4>After · Equalized Histogram</h4><svg id="histAfter" class="bar-chart" role="img" aria-label="Histogram after equalization" viewBox="0 0 390 220"></svg></div></div>
+<div class="table-scroll"><table id="histTable"><thead><tr><th>Input Gray</th><th>Count</th><th>Probability</th><th>CDF</th><th>Output Gray</th></tr></thead><tbody></tbody></table></div>
+<p id="histSummary" class="lab-result" aria-live="polite"></p>
+</article>
+
+<article class="lab" id="lab-gamma"><div class="lab-head"><span>LAB 02 · GRAY-LEVEL</span><h3>γ变换曲线调节器</h3><p>移动滑块，观察归一化灰度0.25如何变化。曲线在图中实时更新。</p></div>
+<div class="slider-row"><label for="gammaSlider">Gamma γ</label><input id="gammaSlider" type="range" min="0.2" max="3" step="0.1" value="0.5"><output id="gammaValue">0.5</output></div>
+<svg id="gammaGraph" role="img" aria-label="Interactive gamma transformation curve" viewBox="0 0 470 270">
+<line x1="46" y1="20" x2="46" y2="231" class="axis"/><line x1="46" y1="231" x2="445" y2="231" class="axis"/>
+<line x1="46" y1="20" x2="445" y2="20" class="chart-grid"/><line x1="445" y1="20" x2="445" y2="231" class="chart-grid"/>
+<text x="12" y="27">1.0</text><text x="28" y="236">0</text><text x="433" y="251">1.0</text><text x="218" y="265">Input r</text><text x="5" y="11">Output s</text>
+<line x1="46" y1="231" x2="445" y2="20" class="identity-line"/>
+<path id="gammaCurve" class="curve gauss" fill="none"/><circle id="gammaPoint" r="5" fill="#d97c58"></circle>
+</svg>
+<p id="gammaResult" class="lab-result" aria-live="polite"></p>
+</article>
+
+<article class="lab" id="lab-kernel"><div class="lab-head"><span>LAB 03 · SPATIAL FILTER</span><h3>均值 / 中值 / 拉普拉斯计算器</h3><p>在九宫格里填灰度。一次计算四种结果；红框是中心像素。</p></div>
+<div class="lab-input-row"><label for="kernelPreset">示例数据</label><select id="kernelPreset">
+<option value="ppt">PPT原题：中心15</option><option value="salt">模拟题：中心255</option>
+<option value="lap">PPT拉普拉斯：中心8</option><option value="flat">均匀区域</option>
+</select></div>
+<div class="kernel-workspace"><div><div class="kernel-grid" id="kernelInputs" aria-label="3×3像素值输入区"></div><p class="subtle">数值可直接修改；这里只计算中心位置。</p></div>
+<div class="kernel-results"><div><small>MEAN</small><strong id="meanResult">—</strong></div><div><small>MEDIAN</small><strong id="medianResult">—</strong></div><div><small>LAPLACIAN (+4)</small><strong id="lapResult">—</strong></div><div><small>SHARPENED CENTER</small><strong id="sharpResult">—</strong></div></div></div>
+<p id="kernelSteps" class="lab-result" aria-live="polite"></p>
+</article>
+
+<article class="lab" id="lab-notch"><div class="lab-head"><span>LAB 04 · FREQUENCY FILTER</span><h3>给周期噪声放置一对陷波</h3><p>中心为频率原点。拖动u、v设置一侧峰值，另一侧根据共轭对称性自动出现。</p></div>
+<div class="notch-layout"><svg id="notchViz" viewBox="0 0 280 280" aria-label="Centered spectrum with symmetric notch markers" role="img">
+<defs><radialGradient id="specGlow"><stop offset="0" stop-color="#f7e7ad"/><stop offset=".2" stop-color="#a2bbaf"/><stop offset="1" stop-color="#243647"/></radialGradient></defs>
+<rect width="280" height="280" rx="14" fill="#203646"/><circle cx="140" cy="140" r="70" fill="url(#specGlow)" opacity=".46"/>
+<line x1="12" y1="140" x2="268" y2="140" stroke="#9faab4" opacity=".38" stroke-dasharray="4 4"/><line x1="140" y1="12" x2="140" y2="268" stroke="#9faab4" opacity=".38" stroke-dasharray="4 4"/>
+<circle cx="140" cy="140" r="7" fill="#fff1b8"/><g id="notchMarkers"></g>
+<text x="251" y="133" fill="#fff" font-size="11">u</text><text x="147" y="17" fill="#fff" font-size="11">v</text></svg>
+<div class="notch-controls">
+<div class="slider-row"><label for="notchU">Offset u</label><input id="notchU" type="range" min="-95" max="95" value="55"><output id="notchUValue">55</output></div>
+<div class="slider-row"><label for="notchV">Offset v</label><input id="notchV" type="range" min="-95" max="95" value="0"><output id="notchVValue">0</output></div>
+<p class="lab-result" id="notchResult" aria-live="polite"></p><p class="subtle">黄色中心为DC，橘色圈代表两处待抑制的噪声峰值。本实验示意频谱定位，不实际修改照片。</p>
+</div></div></article>
+
+<article class="lab" id="lab-morph"><div class="lab-head"><span>LAB 05 · MORPHOLOGY</span><h3>点格子，观察腐蚀和膨胀</h3><p>点击左侧像素切换0/1；选择结构元素后，右侧实时显示结果。</p></div>
+<div class="lab-input-row morph-controls">
+<label for="morphOp">运算</label><select id="morphOp"><option value="dilate">膨胀 Dilation</option><option value="erode">腐蚀 Erosion</option><option value="open">开 Opening</option><option value="close">闭 Closing</option></select>
+<label for="morphShape">结构元素</label><select id="morphShape"><option value="square">3×3方形</option><option value="cross">3×3十字</option></select>
+<button class="button mini" id="morphReset">重置形状</button></div>
+<div class="morph-layout"><div><h4>Input · Click to Edit</h4><div id="morphInput" class="morph-grid" role="group" aria-label="可以编辑的7×7原始二值图像"></div></div><div class="morph-arrow">→</div><div><h4>Output · Result</h4><div id="morphOutput" class="morph-grid" aria-label="形态学处理结果"></div></div></div>
+<p class="lab-result" id="morphResult"></p></article>
+</section>
+
+<section id="exam" class="chapter">
+<div class="chapter-label">PPT PRACTICE / INDEX</div><h2>《复习》PPT <em>原题索引</em></h2>
+<p class="lead">重要题型已嵌入前面章节；这里集中列出你最应该练的题型与做题入口。题目的逐项覆盖以课堂课件为准，网站不声称替代整套78页课件。</p>
+<div class="exam-index">
+<div><span>第20页</span><b>邻接、m通路与三种距离</b><a href="#ch2">看解题步骤 →</a></div>
+<div><span>第32页</span><b>64×64、3bit直方图均衡</b><a href="#lab-hist">直接计算 →</a></div>
+<div><span>第33页</span><b>直方图规定化</b><a href="#specWorked">查看映射 →</a></div>
+<div><span>第37页</span><b>拉普拉斯卷积及锐化</b><a href="#lab-kernel">用计算器验证 →</a></div>
+<div><span>第41页</span><b>均值和中值的区别</b><a href="#lab-kernel">查看计算器 →</a></div>
+<div><span>第54页</span><b>空间平移对应的频域系统</b><a href="#ch4">查看★模块 →</a></div>
+<div><span>第65页</span><b>多帧平均与噪声标准差</b><a href="#ch5">查看计算步骤 →</a></div>
+<div><span>第69页</span><b>线性和位置不变系统</b><a href="#ch5">查看★辨析 →</a></div>
+<div><span>第74页</span><b>并集、交集、补集</b><a href="#ch6">查看答案 →</a></div>
+<div><span>第77～78页</span><b>阈值、区域生长</b><a href="#ch7">查看题型 →</a></div>
+</div>
+<div class="worked" id="specWorked"><div class="worked-title"><span>PPT原题</span>第33页：直方图规定化</div>
+<p>原频数：<code>223, 190, 106, 250, 65, 90, 68, 32</code>（共1024像素）。目标灰度概率：<code>0.20, 0.15, 0, 0.30, 0, 0.10, 0.25, 0</code>。</p>
+<p>分别计算两组累计概率，按最近的累计概率匹配，得到：</p>
+<div class="pill-lines"><code>0→0</code><code>1→1</code><code>2→3</code><code>3→5</code><code>4→5</code><code>5→6</code><code>6→6</code><code>7→6</code></div>
+<p>因此新直方图中的非零频数：n₀=223，n₁=190，n₃=106，n₅=315，n₆=190。</p></div>
+</section>
+<section id="quiz" class="chapter">
+<div class="chapter-label">TEST YOURSELF / 10 QUESTIONS</div><h2>考前 <em>10题小测</em></h2><p class="lead">按考试思路出题，包含概念判断和小计算。答完会显示分数与逐题解析；支持重做。</p>
+<div id="quizQuestions" class="quiz-questions"></div>
+<div class="quiz-footer"><button class="button primary" id="quizSubmit">批改试卷</button><button class="button outline" id="quizReset">重新作答</button><p id="quizScore" aria-live="polite"></p></div>
+</section>
+<section id="formula-card" class="chapter">
+<div class="chapter-label">CHEAT SHEET / KEEP IT SIMPLE</div><h2>考前最后一眼 · <em>公式卡</em></h2>
+<div class="formula-collection">
+<div><small>存储量</small><strong>b=M×N×k，L=2<sup>k</sup></strong></div>
+<div><small>灰度反转</small><strong>s=L−1−r</strong></div>
+<div><small>对数 / 幂次</small><strong>s=c log(1+r)；s=cr<sup>γ</sup></strong></div>
+<div><small>归一化直方图</small><strong>p(rₖ)=nₖ/(MN)</strong></div>
+<div><small>直方图均衡</small><strong>sₖ=round[(L−1)Σ<sub>j≤k</sub>p(rⱼ)]</strong></div>
+<div><small>梯度大小</small><strong>√(Gx²+Gy²) ≈ |Gx|+|Gy|</strong></div>
+<div><small>空间域与频域</small><strong>f*h ↔ F·H</strong></div>
+<div><small>频域滤波</small><strong>G(u,v)=H(u,v)F(u,v)</strong></div>
+<div><small>高通与低通</small><strong>H<sub>HP</sub>=1−H<sub>LP</sub></strong></div>
+<div><small>退化模型</small><strong>G=HF+N</strong></div>
+<div><small>逆滤波</small><strong>F̂=G/H</strong></div>
+<div><small>开操作 / 闭操作</small><strong>先腐蚀后膨胀 / 先膨胀后腐蚀</strong></div>
+</div>
+<div class="final-memory">记住这四句：<b>采样管位置、量化管亮度；低频管整体、高频管细节；中心负减、中心正加；腐蚀缩小、膨胀扩大。</b></div>
+<h3>我的易错点</h3><p class="subtle">在这里记下你做错的题。内容只存在本机浏览器，不会上传到服务器。</p>
+<textarea id="notes" rows="5" placeholder="例如：直方图均衡后需要合并映射频数；拉普拉斯响应不是最终锐化值…"></textarea>
+<div class="note-status" id="notesStatus"></div>
+</section>
+</main></div>
+<footer class="footer"><div><strong>像素之间 <span>▦</span></strong><p>由数字图像处理期末复习课程整理。含基于教材与课堂PPT的知识归纳、人工编写示例和原生浏览器交互。</p></div><div><a href="#home">回到顶部 ↑</a><p>Static HTML · CSS · JavaScript · SVG</p></div>
+<p class="source-note">使用说明：未提供第5章独立PPT；关于该章的知识解释按《复习》PPT提纲补充。PPT原题数据按已读取课件整理，交互中另设演示数据；如考试要求采用特殊边界处理或取整规则，以试卷为准。本网站未嵌入第三方版权课件或教材图片。</p>
+</footer>
+</body></html>

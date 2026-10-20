@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 450" role="img" aria-label="Editorial vector study illustration">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5f1e6"/><stop offset="1" stop-color="#f3e9dc"/></linearGradient>
+<linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#274d50"/><stop offset="1" stop-color="#1b343f"/></linearGradient>
+<filter id="sh"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#254944" flood-opacity=".16"/></filter></defs>
+<rect x="9" y="9" width="562" height="432" rx="28" fill="url(#bg)"/>
+<circle cx="492" cy="70" r="37" fill="#e6b77b" opacity=".75"/><circle cx="80" cy="328" r="58" fill="#bfd9c5" opacity=".55"/>
+<path d="M8 355 C130 336 204 363 292 352 S467 327 572 347 L572 441H8Z" fill="#c5dfd0" opacity=".75"/>
+<ellipse cx="310" cy="378" rx="212" ry="24" fill="#758f85" opacity=".19"/>
+<g filter="url(#sh)"><rect x="130" y="78" width="344" height="252" rx="18" fill="#294746" stroke="#2c4c49" stroke-width="4"/>
+<rect x="145" y="93" width="314" height="221" rx="9" fill="url(#screen)"/>
+<rect x="171" y="120" width="265" height="154" rx="5" fill="#2d4f59"/>
+<g stroke="#73978a" opacity=".26" stroke-width="1"><path d="M197.5 120V274"/><path d="M224.0 120V274"/><path d="M250.5 120V274"/><path d="M277.0 120V274"/><path d="M303.5 120V274"/><path d="M330.0 120V274"/><path d="M356.5 120V274"/><path d="M383.0 120V274"/><path d="M409.5 120V274"/><path d="M171 145.7H436"/><path d="M171 171.3H436"/><path d="M171 197.0H436"/><path d="M171 222.7H436"/><path d="M171 248.4H436"/></g>
+<circle cx="303" cy="195" r="65" fill="#8ed2aa" opacity=".12"/><circle cx="303" cy="195" r="43" fill="#cbe8ad" opacity=".16"/>
+<circle cx="303" cy="195" r="14" fill="#f8e9bd" opacity=".86"/>
+<g fill="#efb47d"><circle cx="230" cy="195" r="6"/><circle cx="376" cy="195" r="6"/><circle cx="303" cy="143" r="3"/><circle cx="303" cy="249" r="3"/><circle cx="247" cy="147" r="3"/><circle cx="357" cy="237" r="3"/><circle cx="352" cy="153" r="4"/></g>
+<text x="171" y="112" fill="#add7c4" font-family="Arial" font-size="10" letter-spacing="1">FOURIER TRANSFORM</text>
+<path d="M116 330H490L508 354H99Z" fill="#b4d2be" stroke="#2b4b4a" stroke-width="3"/>
+<path d="M235 341H369L373 347H231Z" fill="#739f95"/></g>
+<g filter="url(#sh)"><rect x="48" y="56" width="112" height="120" rx="11" fill="#fff8e7" stroke="#2e5954" stroke-width="2"/>
+<text x="63" y="75" fill="#33645b" font-size="11" font-family="Arial">PIXEL MATRIX</text><rect x="64.0" y="86.0" width="14.4" height="14.1" rx="1" fill="#cadece"/><rect x="80.1" y="86.0" width="14.4" height="14.1" rx="1" fill="#7ac7a9"/><rect x="96.2" y="86.0" width="14.4" height="14.1" rx="1" fill="#2b7169"/><rect x="112.3" y="86.0" width="14.4" height="14.1" rx="1" fill="#f0bf82"/><rect x="128.4" y="86.0" width="14.4" height="14.1" rx="1" fill="#d7e3ca"/><rect x="64.0" y="101.8" width="14.4" height="14.1" rx="1" fill="#2b7169"/><rect x="80.1" y="101.8" width="14.4" height="14.1" rx="1" fill="#d7e3ca"/><rect x="96.2" y="101.8" width="14.4" height="14.1" rx="1" fill="#d7e3ca"/><rect x="112.3" y="101.8" width="14.4" height="14.1" rx="1" fill="#7ac7a9"/><rect x="128.4" y="101.8" width="14.4" height="14.1" rx="1" fill="#7ac7a9"/><rect x="64.0" y="117.6" width="14.4" height="14.1" rx="1" fill="#d7e3ca"/><rect x="80.1" y="117.6" width="14.4" height="14.1" rx="1" fill="#cadece"/><rect x="96.2" y="117.6" width="14.4" height="14.1" rx="1" fill="#7ac7a9"/><rect x="112.3" y="117.6" width="14.4" height="14.1" rx="1" fill="#2b7169"/><rect x="128.4" y="117.6" width="14.4" height="14.1" rx="1" fill="#f0bf82"/><rect x="64.0" y="133.4" width="14.4" height="14.1" rx="1" fill="#7ac7a9"/><rect x="80.1" y="133.4" width="14.4" height="14.1" rx="1" fill="#f0bf82"/><rect x="96.2" y="133.4" width="14.4" height="14.1" rx="1" fill="#f0bf82"/><rect x="112.3" y="133.4" width="14.4" height="14.1" rx="1" fill="#cadece"/><rect x="128.4" y="133.4" width="14.4" height="14.1" rx="1" fill="#cadece"/><rect x="64.0" y="149.2" width="14.4" height="14.1" rx="1" fill="#f0bf82"/><rect x="80.1" y="149.2" width="14.4" height="14.1" rx="1" fill="#d7e3ca"/><rect x="96.2" y="149.2" width="14.4" height="14.1" rx="1" fill="#cadece"/><rect x="112.3" y="149.2" width="14.4" height="14.1" rx="1" fill="#7ac7a9"/><rect x="128.4" y="149.2" width="14.4" height="14.1" rx="1" fill="#2b7169"/></g><g filter="url(#sh)"><rect x="390" y="251" width="148" height="119" rx="10" fill="#fff7e6" stroke="#315a52" stroke-width="2"/>
+<text x="405" y="272" font-size="11" fill="#365e56" font-family="Arial">FILTER RESPONSE</text>
+<path d="M408 342H521M410 287V346" stroke="#91a8a0" stroke-width="1"/>
+<path d="M410 291 C437 291 449 304 464 320 S497 343 522 343" fill="none" stroke="#c77856" stroke-width="4" stroke-linecap="round"/>
+<circle cx="463" cy="318" r="5" fill="#e8b77a"/></g>
+<g transform="rotate(-9 107 291)"><rect x="54" y="255" width="105" height="80" rx="8" fill="#cf8162" stroke="#39645c" stroke-width="2"/>
+<rect x="69" y="269" width="75" height="51" rx="3" fill="#f6dfb4"/>
+<path d="M79 281H134M79 291H124M79 301H135" stroke="#a6b19d" stroke-width="4"/><circle cx="128" cy="310" r="7" fill="#368c76"/></g>
+<g fill="#356f65"><path d="M65 395q-15-26-7-43q19 14 20 37z"/><path d="M78 401q-4-32 10-42q12 24 2 43z"/><path d="M490 412q-8-34 8-43q12 27 1 46z"/><path d="M509 408q9-24 25-22q-2 23-22 28z"/></g>
+<g stroke="#365e56" stroke-width="2" fill="none"><path d="M31 93q11-7 20 2"/><path d="M516 118q7-13 17-5"/></g>
+</svg>
